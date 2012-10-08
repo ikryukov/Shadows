@@ -69,12 +69,16 @@ void ObjLoader::Load(std::string& filename, ObjModel& model)
 	model.vertices = m_vertices;
 	model.indices = m_indices;
 	model.m_indexCount = model.indices.size();
-	model.m_vertexBuffer = model.vertices.size();
+	model.m_vertexCount = model.vertices.size();
 	printf("finish load obj\n");
 	printf("vertices count: %ld\n", model.vertices.size());
 	printf("indices count: %ld\n", model.indices.size());
+	m_positions.clear();
+	m_normals.clear();
+	m_texcoords.clear();
 	m_indices.clear();
 	m_vertices.clear();
+	m_stream.close();
 }
 
 void ObjLoader::ParseFace(std::string& str)

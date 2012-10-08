@@ -14,6 +14,9 @@
 #include "Shadows/Shaders/Simple.frag"
 #include "Shadows/Shaders/Simple.vert"
 
+#include "Shadows/Shaders/Quad.frag"
+#include "Shadows/Shaders/Quad.vert"
+
 using namespace std;
 
 mat4 VerticalFieldOfView(float degrees, float aspectRatio, float near, float far)
@@ -65,13 +68,14 @@ public:
 	void SetResourcePath(std::string& path);
 	void SetPivotPoint(float x, float y);
 private:
-	void renderModel(const ObjModel& model) const;
+	void renderModel(const GLuint program, const ObjModel& model) const;
     GLuint BuildShader(const char* source, GLenum shaderType) const;
     GLuint BuildProgram(const char* vShader, const char* fShader) const;
     GLfloat m_rotationAngle;
     GLfloat m_scale;
     vec2 m_pivotPoint;
     GLuint m_simpleProgram;
+	GLuint m_quadProgram;
     GLuint m_framebuffer;
     GLuint m_colorRenderbuffer;
     GLuint m_depthRenderbuffer;
@@ -139,12 +143,14 @@ void RenderingEngine2::Initialize(int width, int height)
     
     glViewport(0, 0, width, height);
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
+    //glEnable(GL_CULL_FACE);
 	
 	screen.x = width;
 	screen.y = height;
 	
     m_simpleProgram = BuildProgram(SimpleVertexShader, SimpleFragmentShader);
+	m_quadProgram = BuildProgram(QuadVertexShader, QuadFragmentShader);
+	
     glUseProgram(m_simpleProgram);
     
     // Set the projection matrix.
@@ -191,10 +197,10 @@ void RenderingEngine2::Render() const
 
 	GLenum status;
 	mat4 projectionMatrix;
-	/*
+	
 	// Shadow pass
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fboShadow);
-	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER) ;
+	status = glCheckFramebufferStatus(GL_FRAMEBUFFER) ;
 	if(status != GL_FRAMEBUFFER_COMPLETE) {
 		printf("Shadow pass: ");
 		printf("failed to make complete framebuffer object %x\n", status);
@@ -202,34 +208,16 @@ void RenderingEngine2::Render() const
 	
 	glClear(GL_DEPTH_BUFFER_BIT);
 	// TODO change to shadowmap size
-	mat4 projectionMatrix = VerticalFieldOfView(90.0, (screen.x + 0.0) / screen.y, 0.1, 1000.0);
+	projectionMatrix = VerticalFieldOfView(90.0, (screen.x + 0.0) / screen.y, 0.1, 1000.0);
 	modelviewMatrix = scale * rotation * translation * LookAt(vec3(5, 5, 5), vec3(0.0, 0.0, 0.0), vec3(-5, -5, 5));
 	
 	glUniformMatrix4fv(projectionUniform, 1, 0, projectionMatrix.Pointer());
     glUniformMatrix4fv(modelviewUniform, 1, 0, modelviewMatrix.Pointer());
 	
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, obj.m_indexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, obj.m_vertexBuffer);
-	
-	glVertexAttribPointer(positionSlot, 3, GL_FLOAT, GL_FALSE, stride, 0);
-    glVertexAttribPointer(colorSlot, 4, GL_FLOAT, GL_FALSE, stride, colorOffset);
-    glVertexAttribPointer(normalSlot, 3, GL_FLOAT, GL_FALSE, stride, normalOffset);
-    glVertexAttribPointer(texSlot, 2, GL_FLOAT, GL_FALSE, stride, texOffset);
-	
-	glEnableVertexAttribArray(positionSlot);
-	glEnableVertexAttribArray(normalSlot);
-    glEnableVertexAttribArray(colorSlot);
-	glEnableVertexAttribArray(texSlot);
-	
-    glDrawElements(GL_TRIANGLES, obj.m_indexCount, GL_UNSIGNED_SHORT, bodyOffset);
-	
-    glDisableVertexAttribArray(colorSlot);
-    glDisableVertexAttribArray(positionSlot);
-	glDisableVertexAttribArray(normalSlot);
-	glDisableVertexAttribArray(texSlot);
+	renderModel(m_simpleProgram, obj);
 	
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);	 
-	*/
+	
 	
 	// Main pass
 	glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
@@ -246,23 +234,20 @@ void RenderingEngine2::Render() const
 	modelviewMatrix = scale * rotation * translation * LookAt(vec3(0,4,7), vec3(0.0, 0.0, 0.0), vec3(0, 7, 4));
 	projectionMatrix = VerticalFieldOfView(90.0, (screen.x + 0.0) / screen.y, 0.1, 1000.0);
     
-	glUniformMatrix4fv(projectionUniform, 1, 0, projectionMatrix.Pointer());
-    glUniformMatrix4fv(modelviewUniform, 1, 0, modelviewMatrix.Pointer());
-
-	renderModel(obj);
-	renderModel(quad);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_textureShadow);
+	glUniform1i(glGetUniformLocation(m_quadProgram, "sShadow"), 0);
+	renderModel(m_quadProgram, quad);
 	
-	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	//glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
 }
 
-void RenderingEngine2::renderModel(const ObjModel &model) const
+void RenderingEngine2::renderModel(const GLuint program, const ObjModel &model) const
 {
-	GLuint positionSlot = glGetAttribLocation(m_simpleProgram, "Position");
-    GLuint colorSlot = glGetAttribLocation(m_simpleProgram, "SourceColor");
-	GLuint normalSlot = glGetAttribLocation(m_simpleProgram, "Normal");
-	GLuint texSlot = glGetAttribLocation(m_simpleProgram, "TexCoord");
+	glUseProgram(program);
+	GLuint positionSlot = glGetAttribLocation(program, "Position");
+    GLuint colorSlot = glGetAttribLocation(program, "SourceColor");
+	GLuint normalSlot = glGetAttribLocation(program, "Normal");
+	GLuint texSlot = glGetAttribLocation(program, "TexCoord");
 	GLsizei stride = sizeof(Vertex);
 	
 	const GLvoid* normalOffset = (GLvoid*) (sizeof(vec3));
@@ -270,8 +255,8 @@ void RenderingEngine2::renderModel(const ObjModel &model) const
     const GLvoid* texOffset = (GLvoid*) (sizeof(vec3) * 2 + sizeof(vec4));
 	const GLvoid* bodyOffset = 0;
 	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, obj.m_indexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, obj.m_vertexBuffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, model.m_indexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, model.m_vertexBuffer);
 	
 	glVertexAttribPointer(positionSlot, 3, GL_FLOAT, GL_FALSE, stride, 0);
     glVertexAttribPointer(colorSlot, 4, GL_FLOAT, GL_FALSE, stride, colorOffset);
@@ -283,7 +268,7 @@ void RenderingEngine2::renderModel(const ObjModel &model) const
     glEnableVertexAttribArray(colorSlot);
 	glEnableVertexAttribArray(texSlot);
 	
-    glDrawElements(GL_TRIANGLES, obj.m_indexCount, GL_UNSIGNED_SHORT, bodyOffset);
+    glDrawElements(GL_TRIANGLES, model.m_indexCount, GL_UNSIGNED_SHORT, bodyOffset);
 	
     glDisableVertexAttribArray(colorSlot);
     glDisableVertexAttribArray(positionSlot);
