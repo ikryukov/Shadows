@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		72441B881624A46500EEF11B /* Shadow.vert in Sources */ = {isa = PBXBuildFile; fileRef = 72441B871624A46500EEF11B /* Shadow.vert */; };
+		72441B8E1624BBA400EEF11B /* Simple.frag in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B676161CD655007DD665 /* Simple.frag */; };
+		72441B8F1624BBA400EEF11B /* Simple.vert in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B677161CD655007DD665 /* Simple.vert */; };
+		72441B901624BBA400EEF11B /* Quad.vert in Resources */ = {isa = PBXBuildFile; fileRef = 72C7A5F1162356AE0005CE3B /* Quad.vert */; };
+		72441B911624BBA400EEF11B /* Quad.frag in Resources */ = {isa = PBXBuildFile; fileRef = 72C7A5F4162357A40005CE3B /* Quad.frag */; };
+		72441B921624BBA400EEF11B /* Shadow.vert in Resources */ = {isa = PBXBuildFile; fileRef = 72441B871624A46500EEF11B /* Shadow.vert */; };
+		72441B951624BCA900EEF11B /* Shadow.frag in Resources */ = {isa = PBXBuildFile; fileRef = 72441B891624B1E900EEF11B /* Shadow.frag */; };
+		72441B971624BDD600EEF11B /* File in Resources */ = {isa = PBXBuildFile; fileRef = 72441B961624BDD600EEF11B /* File */; };
+		72441B991624C5E000EEF11B /* plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = 72441B981624C5DF00EEF11B /* plane.obj */; };
 		72B5B64B161CD5C7007DD665 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B64A161CD5C7007DD665 /* UIKit.framework */; };
 		72B5B64D161CD5C7007DD665 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B64C161CD5C7007DD665 /* Foundation.framework */; };
 		72B5B64F161CD5C7007DD665 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B64E161CD5C7007DD665 /* CoreGraphics.framework */; };
@@ -36,6 +44,8 @@
 /* Begin PBXFileReference section */
 		72441B871624A46500EEF11B /* Shadow.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shadow.vert; sourceTree = "<group>"; };
 		72441B891624B1E900EEF11B /* Shadow.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Shadow.frag; sourceTree = "<group>"; };
+		72441B961624BDD600EEF11B /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = File; sourceTree = "<group>"; };
+		72441B981624C5DF00EEF11B /* plane.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plane.obj; sourceTree = "<group>"; };
 		72B5B646161CD5C7007DD665 /* Shadows.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shadows.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72B5B64A161CD5C7007DD665 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		72B5B64C161CD5C7007DD665 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -135,6 +145,8 @@
 				72B5B672161CD655007DD665 /* cornell_box.obj */,
 				72B5B673161CD655007DD665 /* Shaders */,
 				72B5B651161CD5C8007DD665 /* Supporting Files */,
+				72441B961624BDD600EEF11B /* File */,
+				72441B981624C5DF00EEF11B /* plane.obj */,
 			);
 			path = Shadows;
 			sourceTree = "<group>";
@@ -156,6 +168,7 @@
 		72B5B673161CD655007DD665 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				72441B891624B1E900EEF11B /* Shadow.frag */,
 				72B5B674161CD655007DD665 /* Shader.fsh */,
 				72B5B675161CD655007DD665 /* Shader.vsh */,
 				72B5B676161CD655007DD665 /* Simple.frag */,
@@ -163,7 +176,6 @@
 				72C7A5F1162356AE0005CE3B /* Quad.vert */,
 				72C7A5F4162357A40005CE3B /* Quad.frag */,
 				72441B871624A46500EEF11B /* Shadow.vert */,
-				72441B891624B1E900EEF11B /* Shadow.frag */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -219,12 +231,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72441B951624BCA900EEF11B /* Shadow.frag in Resources */,
+				72441B8E1624BBA400EEF11B /* Simple.frag in Resources */,
+				72441B8F1624BBA400EEF11B /* Simple.vert in Resources */,
+				72441B901624BBA400EEF11B /* Quad.vert in Resources */,
+				72441B911624BBA400EEF11B /* Quad.frag in Resources */,
+				72441B921624BBA400EEF11B /* Shadow.vert in Resources */,
 				72B5B655161CD5C8007DD665 /* InfoPlist.strings in Resources */,
 				72B5B65D161CD5C8007DD665 /* Default.png in Resources */,
 				72B5B65F161CD5C8007DD665 /* Default@2x.png in Resources */,
 				72B5B661161CD5C8007DD665 /* Default-568h@2x.png in Resources */,
 				72B5B67D161CD655007DD665 /* cornell_box.obj in Resources */,
 				72B5B6B7161E078E007DD665 /* quad.obj in Resources */,
+				72441B971624BDD600EEF11B /* File in Resources */,
+				72441B991624C5E000EEF11B /* plane.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

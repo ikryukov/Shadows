@@ -82,6 +82,7 @@ public:
 	void SetPivotPoint(float x, float y);
 private:
 	void renderModel(const GLuint program, const ObjModel& model) const;
+	std::string loadShaderFromFile(string& filename);
     GLuint BuildShader(const char* source, GLenum shaderType) const;
     GLuint BuildProgram(const char* vShader, const char* fShader) const;
     GLfloat m_rotationAngle;
@@ -100,11 +101,31 @@ private:
 	GLuint m_rboShadow;
 	
 	vec2 screen;
+	ivec2 shadowmapSize;
 	ObjModel obj;
 	ObjModel quad;
+	ObjModel plane;
 	string resourcePath;
 	Light m_light;
 };
+
+string RenderingEngine2::loadShaderFromFile(string &filename)
+{
+	std::ifstream m_stream(filename);
+	std::string line;
+	std::string out = "";
+	if (m_stream.fail())
+	{
+		printf("unable to open file\n");
+		return out;
+	}
+	while(std::getline(m_stream, line, '\n'))
+	{
+		out += line + '\n';
+	}
+	m_stream.close();
+	return out;
+}
 
 void RenderingEngine2::SetResourcePath(std::string& path)
 {
@@ -143,6 +164,10 @@ void RenderingEngine2::Initialize(int width, int height)
 	loader.Load(file, quad);
 	quad.createVBO();
     
+	file = resourcePath + string("/") + string("plane.obj");
+	loader.Load(file, plane);
+	plane.createVBO();
+	
     // Create the depth buffer.
     glGenRenderbuffers(1, &m_depthRenderbuffer);
     glBindRenderbuffer(GL_RENDERBUFFER, m_depthRenderbuffer);
@@ -164,9 +189,15 @@ void RenderingEngine2::Initialize(int width, int height)
 	screen.x = width;
 	screen.y = height;
 	
+	shadowmapSize.x = 512;
+	shadowmapSize.y = 512;
+	
     m_simpleProgram = BuildProgram(SimpleVertexShader, SimpleFragmentShader);
 	m_quadProgram = BuildProgram(QuadVertexShader, QuadFragmentShader);
-	m_shadowMapProgram = BuildProgram(ShadowMapVertexShader, ShadowMapFragmentShader);
+	string shaderPath = resourcePath + string("/File");
+	string shaderShadowMapFr = loadShaderFromFile(shaderPath);
+	m_shadowMapProgram = BuildProgram(ShadowMapVertexShader, shaderShadowMapFr.c_str());
+	//m_shadowMapProgram = BuildProgram(ShadowMapVertexShader, ShadowMapFragmentShader);
 	
     glUseProgram(m_simpleProgram);
     
@@ -181,7 +212,7 @@ void RenderingEngine2::Initialize(int width, int height)
 	glBindTexture(GL_TEXTURE_2D, m_textureShadow);
 	
 	// Create the depth texture.
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, shadowmapSize.x, shadowmapSize.y, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL);
 	
 	// Set the textures parameters
 	/*
@@ -212,11 +243,11 @@ void RenderingEngine2::Render() const
 
     mat4 rotation = mat4::Rotate(m_rotationAngle);
     mat4 scale = mat4::Scale(m_scale);
-    mat4 translation = mat4::Translate(0, 0, -7);
+    mat4 translation = mat4::Translate(0, 0, 0);
     GLint modelviewUniform = glGetUniformLocation(m_simpleProgram, "Modelview");
 	GLint projectionUniform = glGetUniformLocation(m_simpleProgram, "Projection");
 	
-	mat4 modelviewMatrix = scale * rotation * translation * LookAt(vec3(0,0,7), vec3(0.0, 0.0, 0.0), vec3(0, 1, 0));
+	mat4 modelviewMatrix ;//= scale * rotation * translation * LookAt(vec3(0,0,7), vec3(0.0, 0.0, 0.0), vec3(0, 1, 0));
 
 
 	GLenum status;
@@ -232,13 +263,18 @@ void RenderingEngine2::Render() const
 	
 	glClear(GL_DEPTH_BUFFER_BIT);
 	// TODO change to shadowmap size
-	mat4 lightProjectionMatrix = VerticalFieldOfView(90.0, (screen.x + 0.0) / screen.y, 0.1, 1000.0);
-	mat4 lightModelviewMatrix = scale * rotation * translation * LookAt(vec3(5, 5, 5), vec3(0.0, 0.0, 0.0), vec3(-5, -5, 5));
-	
+	mat4 lightProjectionMatrix = VerticalFieldOfView(90.0, (shadowmapSize.x + 0.0) / shadowmapSize.y, 0.1, 1000.0);
+	mat4 lightModelviewMatrix = LookAt(vec3(0,4,7), vec3(0.0, 0.0, 0.0), vec3(0, 4, -7));
+
+	glUseProgram(m_simpleProgram);
 	glUniformMatrix4fv(projectionUniform, 1, 0, lightProjectionMatrix.Pointer());
     glUniformMatrix4fv(modelviewUniform, 1, 0, lightModelviewMatrix.Pointer());
+	glViewport(0, 0, shadowmapSize.x, shadowmapSize.y);
+
 	
 	renderModel(m_simpleProgram, obj);
+	renderModel(m_simpleProgram, plane);
+	
 	
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);	 
 	
@@ -255,24 +291,28 @@ void RenderingEngine2::Render() const
     glClearColor(0.5f, 0.5f, 0.5f, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	modelviewMatrix = scale * rotation * translation * LookAt(vec3(0,4,7), vec3(0.0, 0.0, 0.0), vec3(0, 7, 4));
-	projectionMatrix = VerticalFieldOfView(90.0, (screen.x + 0.0) / screen.y, 0.1, 1000.0);
+	modelviewMatrix = scale * rotation * translation * LookAt(vec3(0,8,7), vec3(0.0, 0.0, 0.0), vec3(0, 8, -7));
+	projectionMatrix = VerticalFieldOfView(45.0, (screen.x + 0.0) / screen.y, 0.1, 1000.0);
     mat4 offsetLight = mat4::Scale(0.5f) * mat4::Translate(0.5, 0.5, 0.5);
 
 	modelviewUniform = glGetUniformLocation(m_shadowMapProgram, "Modelview");
 	projectionUniform = glGetUniformLocation(m_shadowMapProgram, "Projection");
 	GLint lightMatrixUniform = glGetUniformLocation(m_shadowMapProgram, "lightMatrix");
 
-	mat4 lightMatrix = lightModelviewMatrix * lightProjectionMatrix * offsetLight;
-	
-	glUniformMatrix4fv(projectionUniform, 1, 0, lightProjectionMatrix.Pointer());
-    glUniformMatrix4fv(modelviewUniform, 1, 0, lightModelviewMatrix.Pointer());
+	mat4 lightMatrix = offsetLight * lightProjectionMatrix * lightModelviewMatrix;
+	glUseProgram(m_shadowMapProgram);
 	glUniformMatrix4fv(lightMatrixUniform, 1, 0, lightMatrix.Pointer());
-	
+	glUniformMatrix4fv(projectionUniform, 1, 0, projectionMatrix.Pointer());
+    glUniformMatrix4fv(modelviewUniform, 1, 0, modelviewMatrix.Pointer());
+
+	glViewport(0, 0, screen.x, screen.y);
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_textureShadow);
 	glUniform1i(glGetUniformLocation(m_shadowMapProgram, "shadowMapTex"), 0);
 	renderModel(m_shadowMapProgram, obj);
+	renderModel(m_shadowMapProgram, plane);
+	
 	
 }
 
