@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		72441B881624A46500EEF11B /* Shadow.vert in Sources */ = {isa = PBXBuildFile; fileRef = 72441B871624A46500EEF11B /* Shadow.vert */; };
 		72B5B64B161CD5C7007DD665 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B64A161CD5C7007DD665 /* UIKit.framework */; };
 		72B5B64D161CD5C7007DD665 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B64C161CD5C7007DD665 /* Foundation.framework */; };
 		72B5B64F161CD5C7007DD665 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B64E161CD5C7007DD665 /* CoreGraphics.framework */; };
@@ -33,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		72441B871624A46500EEF11B /* Shadow.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shadow.vert; sourceTree = "<group>"; };
+		72441B891624B1E900EEF11B /* Shadow.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Shadow.frag; sourceTree = "<group>"; };
 		72B5B646161CD5C7007DD665 /* Shadows.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shadows.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72B5B64A161CD5C7007DD665 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		72B5B64C161CD5C7007DD665 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -159,6 +162,8 @@
 				72B5B677161CD655007DD665 /* Simple.vert */,
 				72C7A5F1162356AE0005CE3B /* Quad.vert */,
 				72C7A5F4162357A40005CE3B /* Quad.frag */,
+				72441B871624A46500EEF11B /* Shadow.vert */,
+				72441B891624B1E900EEF11B /* Shadow.frag */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -242,6 +247,7 @@
 				72B5B6A9161CDD79007DD665 /* RenderingEngine1.cpp in Sources */,
 				72C7A5F2162356AE0005CE3B /* Quad.vert in Sources */,
 				72C7A5F5162357A40005CE3B /* Quad.frag in Sources */,
+				72441B881624A46500EEF11B /* Shadow.vert in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

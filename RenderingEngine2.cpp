@@ -10,12 +10,25 @@
 #include <string>
 #include "ObjLoader.h"
 
+#ifndef GL_TEXTURE_COMPARE_MODE_EXT
+#   define GL_TEXTURE_COMPARE_MODE_EXT      0x884C
+#endif
+#ifndef GL_TEXTURE_COMPARE_FUNC_EXT
+#   define GL_TEXTURE_COMPARE_FUNC_EXT      0x884D
+#endif
+#ifndef GL_COMPARE_REF_TO_TEXTURE_EXT
+#   define GL_COMPARE_REF_TO_TEXTURE_EXT    0x884E
+#endif
+
 #define STRINGIFY(A)  #A
 #include "Shadows/Shaders/Simple.frag"
 #include "Shadows/Shaders/Simple.vert"
 
 #include "Shadows/Shaders/Quad.frag"
 #include "Shadows/Shaders/Quad.vert"
+
+#include "Shadows/Shaders/Shadow.vert"
+#include "Shadows/Shaders/Shadow.frag"
 
 using namespace std;
 
@@ -74,8 +87,11 @@ private:
     GLfloat m_rotationAngle;
     GLfloat m_scale;
     vec2 m_pivotPoint;
-    GLuint m_simpleProgram;
+    
+	GLuint m_simpleProgram;
 	GLuint m_quadProgram;
+	GLuint m_shadowMapProgram;
+	
     GLuint m_framebuffer;
     GLuint m_colorRenderbuffer;
     GLuint m_depthRenderbuffer;
@@ -150,6 +166,7 @@ void RenderingEngine2::Initialize(int width, int height)
 	
     m_simpleProgram = BuildProgram(SimpleVertexShader, SimpleFragmentShader);
 	m_quadProgram = BuildProgram(QuadVertexShader, QuadFragmentShader);
+	m_shadowMapProgram = BuildProgram(ShadowMapVertexShader, ShadowMapFragmentShader);
 	
     glUseProgram(m_simpleProgram);
     
@@ -167,10 +184,17 @@ void RenderingEngine2::Initialize(int width, int height)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL);
 	
 	// Set the textures parameters
+	/*
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	*/
+	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE_EXT, GL_COMPARE_REF_TO_TEXTURE_EXT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC_EXT, GL_LEQUAL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	
 	glGenFramebuffers(1, &m_fboShadow);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fboShadow);
@@ -208,11 +232,11 @@ void RenderingEngine2::Render() const
 	
 	glClear(GL_DEPTH_BUFFER_BIT);
 	// TODO change to shadowmap size
-	projectionMatrix = VerticalFieldOfView(90.0, (screen.x + 0.0) / screen.y, 0.1, 1000.0);
-	modelviewMatrix = scale * rotation * translation * LookAt(vec3(5, 5, 5), vec3(0.0, 0.0, 0.0), vec3(-5, -5, 5));
+	mat4 lightProjectionMatrix = VerticalFieldOfView(90.0, (screen.x + 0.0) / screen.y, 0.1, 1000.0);
+	mat4 lightModelviewMatrix = scale * rotation * translation * LookAt(vec3(5, 5, 5), vec3(0.0, 0.0, 0.0), vec3(-5, -5, 5));
 	
-	glUniformMatrix4fv(projectionUniform, 1, 0, projectionMatrix.Pointer());
-    glUniformMatrix4fv(modelviewUniform, 1, 0, modelviewMatrix.Pointer());
+	glUniformMatrix4fv(projectionUniform, 1, 0, lightProjectionMatrix.Pointer());
+    glUniformMatrix4fv(modelviewUniform, 1, 0, lightModelviewMatrix.Pointer());
 	
 	renderModel(m_simpleProgram, obj);
 	
@@ -233,11 +257,22 @@ void RenderingEngine2::Render() const
 	
 	modelviewMatrix = scale * rotation * translation * LookAt(vec3(0,4,7), vec3(0.0, 0.0, 0.0), vec3(0, 7, 4));
 	projectionMatrix = VerticalFieldOfView(90.0, (screen.x + 0.0) / screen.y, 0.1, 1000.0);
-    
+    mat4 offsetLight = mat4::Scale(0.5f) * mat4::Translate(0.5, 0.5, 0.5);
+
+	modelviewUniform = glGetUniformLocation(m_shadowMapProgram, "Modelview");
+	projectionUniform = glGetUniformLocation(m_shadowMapProgram, "Projection");
+	GLint lightMatrixUniform = glGetUniformLocation(m_shadowMapProgram, "lightMatrix");
+
+	mat4 lightMatrix = lightModelviewMatrix * lightProjectionMatrix * offsetLight;
+	
+	glUniformMatrix4fv(projectionUniform, 1, 0, lightProjectionMatrix.Pointer());
+    glUniformMatrix4fv(modelviewUniform, 1, 0, lightModelviewMatrix.Pointer());
+	glUniformMatrix4fv(lightMatrixUniform, 1, 0, lightMatrix.Pointer());
+	
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_textureShadow);
-	glUniform1i(glGetUniformLocation(m_quadProgram, "sShadow"), 0);
-	renderModel(m_quadProgram, quad);
+	glUniform1i(glGetUniformLocation(m_shadowMapProgram, "shadowMapTex"), 0);
+	renderModel(m_shadowMapProgram, obj);
 	
 }
 
