@@ -299,7 +299,7 @@ void RenderingEngine2::Render() const
 	projectionUniform = glGetUniformLocation(m_shadowMapProgram, "Projection");
 	GLint lightMatrixUniform = glGetUniformLocation(m_shadowMapProgram, "lightMatrix");
 
-	mat4 lightMatrix = offsetLight * lightProjectionMatrix * lightModelviewMatrix;
+	mat4 lightMatrix = lightModelviewMatrix * lightProjectionMatrix * offsetLight;
 	glUseProgram(m_shadowMapProgram);
 	glUniformMatrix4fv(lightMatrixUniform, 1, 0, lightMatrix.Pointer());
 	glUniformMatrix4fv(projectionUniform, 1, 0, projectionMatrix.Pointer());
