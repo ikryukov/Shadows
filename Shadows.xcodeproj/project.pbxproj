@@ -35,7 +35,6 @@
 		72B5B69A161CDC23007DD665 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B699161CDC23007DD665 /* QuartzCore.framework */; };
 		72B5B6A7161CDD79007DD665 /* RenderingEngine2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72B5B69F161CDD79007DD665 /* RenderingEngine2.cpp */; };
 		72B5B6A8161CDD79007DD665 /* ObjLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72B5B6A1161CDD79007DD665 /* ObjLoader.cpp */; };
-		72B5B6A9161CDD79007DD665 /* RenderingEngine1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72B5B6A2161CDD79007DD665 /* RenderingEngine1.cpp */; };
 		72B5B6B7161E078E007DD665 /* quad.obj in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B6B6161E078E007DD665 /* quad.obj */; };
 		72C7A5F2162356AE0005CE3B /* Quad.vert in Sources */ = {isa = PBXBuildFile; fileRef = 72C7A5F1162356AE0005CE3B /* Quad.vert */; };
 		72C7A5F5162357A40005CE3B /* Quad.frag in Sources */ = {isa = PBXBuildFile; fileRef = 72C7A5F4162357A40005CE3B /* Quad.frag */; };
@@ -71,7 +70,6 @@
 		72B5B69F161CDD79007DD665 /* RenderingEngine2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderingEngine2.cpp; sourceTree = SOURCE_ROOT; };
 		72B5B6A0161CDD79007DD665 /* ObjLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjLoader.h; sourceTree = SOURCE_ROOT; };
 		72B5B6A1161CDD79007DD665 /* ObjLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjLoader.cpp; sourceTree = SOURCE_ROOT; };
-		72B5B6A2161CDD79007DD665 /* RenderingEngine1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderingEngine1.cpp; sourceTree = SOURCE_ROOT; };
 		72B5B6A3161CDD79007DD665 /* IRenderingEngine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IRenderingEngine.hpp; sourceTree = SOURCE_ROOT; };
 		72B5B6A4161CDD79007DD665 /* Matrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = SOURCE_ROOT; };
 		72B5B6A5161CDD79007DD665 /* Quaternion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Quaternion.hpp; sourceTree = SOURCE_ROOT; };
@@ -133,7 +131,6 @@
 				72B5B69F161CDD79007DD665 /* RenderingEngine2.cpp */,
 				72B5B6A0161CDD79007DD665 /* ObjLoader.h */,
 				72B5B6A1161CDD79007DD665 /* ObjLoader.cpp */,
-				72B5B6A2161CDD79007DD665 /* RenderingEngine1.cpp */,
 				72B5B6A3161CDD79007DD665 /* IRenderingEngine.hpp */,
 				72B5B6A4161CDD79007DD665 /* Matrix.hpp */,
 				72B5B6A5161CDD79007DD665 /* Quaternion.hpp */,
@@ -264,7 +261,6 @@
 				72B5B68E161CDB32007DD665 /* GLView.mm in Sources */,
 				72B5B6A7161CDD79007DD665 /* RenderingEngine2.cpp in Sources */,
 				72B5B6A8161CDD79007DD665 /* ObjLoader.cpp in Sources */,
-				72B5B6A9161CDD79007DD665 /* RenderingEngine1.cpp in Sources */,
 				72C7A5F2162356AE0005CE3B /* Quad.vert in Sources */,
 				72C7A5F5162357A40005CE3B /* Quad.frag in Sources */,
 				72441B881624A46500EEF11B /* Shadow.vert in Sources */,

@@ -15,6 +15,6 @@ void main(void)
 	DestinationColor = SourceColor;
 	gl_Position = Projection * Modelview * vec4(Position, 1);
 	//gl_Position = vec4(Position, 1);
-	fragmentNormal = Normal;
+	fragmentNormal = normalize(Normal);
 }
 );

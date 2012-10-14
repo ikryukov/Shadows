@@ -137,9 +137,9 @@ void RenderingEngine2::SetPivotPoint(float x, float y)
 	m_pivotPoint = vec2(x, y);
 }
 
-IRenderingEngine* CreateRenderer2()
+std::auto_ptr<IRenderingEngine> CreateRenderer2()
 {
-    return new RenderingEngine2();
+    return std::auto_ptr<IRenderingEngine>(new RenderingEngine2());
 }
 
 RenderingEngine2::RenderingEngine2() : m_rotationAngle(0), m_scale(1)
@@ -189,8 +189,8 @@ void RenderingEngine2::Initialize(int width, int height)
 	screen.x = width;
 	screen.y = height;
 	
-	shadowmapSize.x = 512;
-	shadowmapSize.y = 512;
+	shadowmapSize.x = 2048;
+	shadowmapSize.y = 2048;
 	
     m_simpleProgram = BuildProgram(SimpleVertexShader, SimpleFragmentShader);
 	m_quadProgram = BuildProgram(QuadVertexShader, QuadFragmentShader);
@@ -215,9 +215,10 @@ void RenderingEngine2::Initialize(int width, int height)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, shadowmapSize.x, shadowmapSize.y, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL);
 	
 	// Set the textures parameters
-	/*
+	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	/*
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	*/
@@ -262,7 +263,6 @@ void RenderingEngine2::Render() const
 	}
 	
 	glClear(GL_DEPTH_BUFFER_BIT);
-	// TODO change to shadowmap size
 	mat4 lightProjectionMatrix = VerticalFieldOfView(90.0, (shadowmapSize.x + 0.0) / shadowmapSize.y, 0.1, 1000.0);
 	mat4 lightModelviewMatrix = LookAt(vec3(0,4,7), vec3(0.0, 0.0, 0.0), vec3(0, 4, -7));
 
@@ -325,18 +325,15 @@ void RenderingEngine2::renderModel(const GLuint program, const ObjModel &model) 
 	GLuint texSlot = glGetAttribLocation(program, "TexCoord");
 	GLsizei stride = sizeof(Vertex);
 	
-	const GLvoid* normalOffset = (GLvoid*) (sizeof(vec3));
-    const GLvoid* colorOffset = (GLvoid*) (sizeof(vec3) * 2);
-    const GLvoid* texOffset = (GLvoid*) (sizeof(vec3) * 2 + sizeof(vec4));
 	const GLvoid* bodyOffset = 0;
 	
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, model.m_indexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, model.m_vertexBuffer);
 	
-	glVertexAttribPointer(positionSlot, 3, GL_FLOAT, GL_FALSE, stride, 0);
-    glVertexAttribPointer(colorSlot, 4, GL_FLOAT, GL_FALSE, stride, colorOffset);
-    glVertexAttribPointer(normalSlot, 3, GL_FLOAT, GL_FALSE, stride, normalOffset);
-    glVertexAttribPointer(texSlot, 2, GL_FLOAT, GL_FALSE, stride, texOffset);
+	glVertexAttribPointer(positionSlot, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*) offsetof(Vertex, Position));
+    glVertexAttribPointer(colorSlot, 4, GL_FLOAT, GL_FALSE, stride, (GLvoid*) offsetof(Vertex, Color));
+    glVertexAttribPointer(normalSlot, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*) offsetof(Vertex, Normal));
+    glVertexAttribPointer(texSlot, 2, GL_FLOAT, GL_FALSE, stride, (GLvoid*) offsetof(Vertex, TexCoord));
 	
 	glEnableVertexAttribArray(positionSlot);
 	glEnableVertexAttribArray(normalSlot);

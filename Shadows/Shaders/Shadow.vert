@@ -20,7 +20,7 @@ void main(void)
 	fColor = SourceColor;
 	gl_Position = Projection * Modelview * vec4(Position, 1);
 	fShadowMapCoord = lightMatrix * vec4(Position, 1.0);
-	fNormal = Normal;
+	fNormal = normalize(Normal);
 	fTexCoord = TexCoord;
 }
 

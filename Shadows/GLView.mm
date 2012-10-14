@@ -41,7 +41,7 @@ std::string getPath()
 			return nil; }
 		if (api == kEAGLRenderingAPIOpenGLES1) {
 			NSLog(@"Using OpenGL ES 1.1");
-			m_renderingEngine = CreateRenderer1();
+			NSLog(@"unsupported device");
 		} else {
 			NSLog(@"Using OpenGL ES 2.0");
 			m_renderingEngine = CreateRenderer2();

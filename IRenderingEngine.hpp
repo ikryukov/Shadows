@@ -11,6 +11,7 @@
 #include "Vector.hpp"
 #include <string>
 
+
 // Physical orientation of a handheld device, equivalent to UIDeviceOrientation.
 enum DeviceOrientation {
 	DeviceOrientationUnknown,
@@ -35,7 +36,6 @@ struct IRenderingEngine {
     virtual ~IRenderingEngine() {}
 };
 // Creates an instance of the renderer and sets up various OpenGL state.
-struct IRenderingEngine* CreateRenderer1();
-struct IRenderingEngine* CreateRenderer2();
+struct std::auto_ptr<IRenderingEngine> CreateRenderer2();
 
 #endif

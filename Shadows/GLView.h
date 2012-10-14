@@ -14,7 +14,7 @@
 @interface GLView : UIView {
 @private
 	EAGLContext* m_context;
-	struct IRenderingEngine* m_renderingEngine;
+	std::auto_ptr<IRenderingEngine> m_renderingEngine;
 	float m_timestamp;
 }
 - (void) drawView: (CADisplayLink*) displayLink;
