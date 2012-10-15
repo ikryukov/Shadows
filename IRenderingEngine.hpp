@@ -27,7 +27,7 @@ struct IRenderingEngine {
     virtual void Initialize(int width, int height) = 0;
 	virtual void SetResourcePath(std::string& path) = 0;
 	virtual void SetPivotPoint(float x, float y) = 0;
-    virtual void Render() const = 0;
+    virtual void Render() = 0;
     virtual void UpdateAnimation(float timeStep) = 0;
     virtual void OnRotate(DeviceOrientation newOrientation) = 0;
     virtual void OnFingerUp(vec2 location) = 0;

@@ -149,7 +149,7 @@ struct Matrix4 {
         m.w.x = 0; m.w.y = 0; m.w.z = 0; m.w.w = 1;
         return m;
     }
-    static Matrix4<T> Rotate(T degrees)
+    static Matrix4<T> RotateZ(T degrees)
     {
         T radians = degrees * 3.14159f / 180.0f;
         T s = std::sin(radians);
@@ -162,6 +162,34 @@ struct Matrix4 {
         m.w.x =  0; m.w.y = 0; m.w.z = 0; m.w.w = 1;
         return m;
     }
+	static Matrix4<T> RotateY(T degrees)
+    {
+        T radians = degrees * 3.14159f / 180.0f;
+        T s = std::sin(radians);
+        T c = std::cos(radians);
+        
+        Matrix4 m;
+        m.x.x =  c; m.x.y = 0; m.x.z = s; m.x.w = 0;
+        m.y.x =  0; m.y.y = 1; m.y.z = 0; m.y.w = 0;
+        m.z.x = -s; m.z.y = 0; m.z.z = c; m.z.w = 0;
+        m.w.x =  0; m.w.y = 0; m.w.z = 0; m.w.w = 1;
+        return m;
+    }
+	
+	static Matrix4<T> RotateX(T degrees)
+    {
+        T radians = degrees * 3.14159f / 180.0f;
+        T s = std::sin(radians);
+        T c = std::cos(radians);
+        
+        Matrix4 m;
+        m.x.x =  1; m.x.y = 0; m.x.z = 0; m.x.w = 0;
+        m.y.x =  0; m.y.y = c; m.y.z = s; m.y.w = 0;
+        m.z.x =  0; m.z.y =-s; m.z.z = c; m.z.w = 0;
+        m.w.x =  0; m.w.y = 0; m.w.z = 0; m.w.w = 1;
+        return m;
+    }
+	
     static Matrix4<T> Frustum(T left, T right, T bottom, T top, T near, T far)
     {
         T a = 2 * near / (right - left);

@@ -19,6 +19,7 @@
 		72441BBA162C8B9B00EEF11B /* Quad.vert in Resources */ = {isa = PBXBuildFile; fileRef = 72441BB1162C88CB00EEF11B /* Quad.vert */; };
 		72441BBB162C8B9B00EEF11B /* Quad.frag in Resources */ = {isa = PBXBuildFile; fileRef = 72441BB3162C88E200EEF11B /* Quad.frag */; };
 		72441BBC162C8B9B00EEF11B /* Shadow.frag in Resources */ = {isa = PBXBuildFile; fileRef = 72441BB5162C891500EEF11B /* Shadow.frag */; };
+		72441BBE162CA5BD00EEF11B /* tree.obj in Resources */ = {isa = PBXBuildFile; fileRef = 72441BBD162CA5BD00EEF11B /* tree.obj */; };
 		72B5B64B161CD5C7007DD665 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B64A161CD5C7007DD665 /* UIKit.framework */; };
 		72B5B64D161CD5C7007DD665 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B64C161CD5C7007DD665 /* Foundation.framework */; };
 		72B5B64F161CD5C7007DD665 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B64E161CD5C7007DD665 /* CoreGraphics.framework */; };
@@ -27,7 +28,7 @@
 		72B5B65D161CD5C8007DD665 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B65C161CD5C8007DD665 /* Default.png */; };
 		72B5B65F161CD5C8007DD665 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B65E161CD5C8007DD665 /* Default@2x.png */; };
 		72B5B661161CD5C8007DD665 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B660161CD5C8007DD665 /* Default-568h@2x.png */; };
-		72B5B67D161CD655007DD665 /* cornell_box.obj in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B672161CD655007DD665 /* cornell_box.obj */; };
+		72B5B67D161CD655007DD665 /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B672161CD655007DD665 /* teapot.obj */; };
 		72B5B68D161CDB32007DD665 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 72B5B68A161CDB32007DD665 /* AppDelegate.mm */; };
 		72B5B68E161CDB32007DD665 /* GLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 72B5B68B161CDB32007DD665 /* GLView.mm */; };
 		72B5B698161CDC05007DD665 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B697161CDC05007DD665 /* OpenGLES.framework */; };
@@ -47,6 +48,7 @@
 		72441BB1162C88CB00EEF11B /* Quad.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Quad.vert; sourceTree = "<group>"; };
 		72441BB3162C88E200EEF11B /* Quad.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Quad.frag; sourceTree = "<group>"; };
 		72441BB5162C891500EEF11B /* Shadow.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shadow.frag; sourceTree = "<group>"; };
+		72441BBD162CA5BD00EEF11B /* tree.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree.obj; sourceTree = "<group>"; };
 		72B5B646161CD5C7007DD665 /* Shadows.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shadows.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72B5B64A161CD5C7007DD665 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		72B5B64C161CD5C7007DD665 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -58,7 +60,7 @@
 		72B5B65C161CD5C8007DD665 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		72B5B65E161CD5C8007DD665 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		72B5B660161CD5C8007DD665 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		72B5B672161CD655007DD665 /* cornell_box.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cornell_box.obj; sourceTree = "<group>"; };
+		72B5B672161CD655007DD665 /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
 		72B5B689161CDB31007DD665 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		72B5B68A161CDB32007DD665 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		72B5B68B161CDB32007DD665 /* GLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLView.mm; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 		72B5B650161CD5C7007DD665 /* Shadows */ = {
 			isa = PBXGroup;
 			children = (
+				72441BBD162CA5BD00EEF11B /* tree.obj */,
 				72B5B6B6161E078E007DD665 /* quad.obj */,
 				72B5B69F161CDD79007DD665 /* RenderingEngine2.cpp */,
 				72B5B6A0161CDD79007DD665 /* ObjLoader.h */,
@@ -135,7 +138,7 @@
 				72B5B68A161CDB32007DD665 /* AppDelegate.mm */,
 				72B5B68B161CDB32007DD665 /* GLView.mm */,
 				72B5B68C161CDB32007DD665 /* GLView.h */,
-				72B5B672161CD655007DD665 /* cornell_box.obj */,
+				72B5B672161CD655007DD665 /* teapot.obj */,
 				72B5B651161CD5C8007DD665 /* Supporting Files */,
 				72441B981624C5DF00EEF11B /* plane.obj */,
 				72441BAA162C828700EEF11B /* MathUtils.h */,
@@ -225,9 +228,10 @@
 				72B5B65D161CD5C8007DD665 /* Default.png in Resources */,
 				72B5B65F161CD5C8007DD665 /* Default@2x.png in Resources */,
 				72B5B661161CD5C8007DD665 /* Default-568h@2x.png in Resources */,
-				72B5B67D161CD655007DD665 /* cornell_box.obj in Resources */,
+				72B5B67D161CD655007DD665 /* teapot.obj in Resources */,
 				72B5B6B7161E078E007DD665 /* quad.obj in Resources */,
 				72441B991624C5E000EEF11B /* plane.obj in Resources */,
+				72441BBE162CA5BD00EEF11B /* tree.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

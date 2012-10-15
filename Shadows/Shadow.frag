@@ -9,7 +9,6 @@ varying highp vec4 fShadowMapCoord;
 highp vec3 Light = vec3(0.0, 4.0, 7.0);
 highp vec4 Color = vec4(0.2, 0.4, 0.5, 1.0);
 
-
 void main(void)
 {
 	Light = normalize(Light);
