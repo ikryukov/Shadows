@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <string>
 #include "ObjLoader.h"
+#include "MathUtils.h"
+#include "ShaderUtils.h"
 
 #ifndef GL_TEXTURE_COMPARE_MODE_EXT
 #   define GL_TEXTURE_COMPARE_MODE_EXT      0x884C
@@ -20,42 +22,7 @@
 #   define GL_COMPARE_REF_TO_TEXTURE_EXT    0x884E
 #endif
 
-#define STRINGIFY(A)  #A
-#include "Shadows/Shaders/Simple.frag"
-#include "Shadows/Shaders/Simple.vert"
-
-#include "Shadows/Shaders/Quad.frag"
-#include "Shadows/Shaders/Quad.vert"
-
-#include "Shadows/Shaders/Shadow.vert"
-#include "Shadows/Shaders/Shadow.frag"
-
 using namespace std;
-
-mat4 VerticalFieldOfView(float degrees, float aspectRatio, float near, float far)
-{
-	float top = near * std::tan(degrees * Pi / 360.0f);
-	float bottom = -top;
-	float left = bottom * aspectRatio;
-	float right = top * aspectRatio;
-	return mat4::Frustum(left, right, bottom, top, near, far);
-}
-
-static mat4 LookAt(const vec3& eye, const vec3& target, const vec3& up)
-{
-	vec3 z = (eye - target).Normalized();
-	vec3 x = up.Cross(z).Normalized();
-	vec3 y = z.Cross(x).Normalized();
-	mat4 m;
-	m.x = vec4(x.x, x.y, x.z, 0);
-	m.y = vec4(y.x, y.y, y.z, 0);
-	m.z = vec4(z.x, z.y, z.z, 0);
-	m.w = vec4(0, 0, 0, 1);
-	vec4 eyePrime = m * vec4(-eye.x , -eye.y, -eye.z, 1.0);
-	m = m.Transposed();
-	m.w = eyePrime;
-	return m;
-}
 
 struct Light {
 	vec3 Position;
@@ -82,9 +49,6 @@ public:
 	void SetPivotPoint(float x, float y);
 private:
 	void renderModel(const GLuint program, const ObjModel& model) const;
-	std::string loadShaderFromFile(string& filename);
-    GLuint BuildShader(const char* source, GLenum shaderType) const;
-    GLuint BuildProgram(const char* vShader, const char* fShader) const;
     GLfloat m_rotationAngle;
     GLfloat m_scale;
     vec2 m_pivotPoint;
@@ -108,24 +72,6 @@ private:
 	string resourcePath;
 	Light m_light;
 };
-
-string RenderingEngine2::loadShaderFromFile(string &filename)
-{
-	std::ifstream m_stream(filename);
-	std::string line;
-	std::string out = "";
-	if (m_stream.fail())
-	{
-		printf("unable to open file\n");
-		return out;
-	}
-	while(std::getline(m_stream, line, '\n'))
-	{
-		out += line + '\n';
-	}
-	m_stream.close();
-	return out;
-}
 
 void RenderingEngine2::SetResourcePath(std::string& path)
 {
@@ -151,7 +97,6 @@ RenderingEngine2::RenderingEngine2() : m_rotationAngle(0), m_scale(1)
 
 void RenderingEngine2::Initialize(int width, int height)
 {
-    //m_pivotPoint = ivec2(width / 2, height / 2);
 	printf("x = %f, y = %f\n", m_pivotPoint.x, m_pivotPoint.y);
 	string filename = string("cornell_box.obj");
 	string file = resourcePath + string("/") + filename;
@@ -191,13 +136,27 @@ void RenderingEngine2::Initialize(int width, int height)
 	
 	shadowmapSize.x = 2048;
 	shadowmapSize.y = 2048;
+
+	string shaderPath = resourcePath + string("/Simple.vert");
+	string vertexShaderSource = loadShaderFromFile(shaderPath);
+	shaderPath = resourcePath + string("/Simple.frag");
+	string fragmentShaderSource = loadShaderFromFile(shaderPath);
 	
-    m_simpleProgram = BuildProgram(SimpleVertexShader, SimpleFragmentShader);
-	m_quadProgram = BuildProgram(QuadVertexShader, QuadFragmentShader);
-	string shaderPath = resourcePath + string("/File");
-	string shaderShadowMapFr = loadShaderFromFile(shaderPath);
-	m_shadowMapProgram = BuildProgram(ShadowMapVertexShader, shaderShadowMapFr.c_str());
-	//m_shadowMapProgram = BuildProgram(ShadowMapVertexShader, ShadowMapFragmentShader);
+    m_simpleProgram = BuildProgram(vertexShaderSource.c_str(), fragmentShaderSource.c_str());
+	
+	shaderPath = resourcePath + string("/Quad.vert");
+	vertexShaderSource = loadShaderFromFile(shaderPath);
+	shaderPath = resourcePath + string("/Quad.frag");
+	fragmentShaderSource = loadShaderFromFile(shaderPath);
+	
+	m_quadProgram = BuildProgram(vertexShaderSource.c_str(), fragmentShaderSource.c_str());
+
+	shaderPath = resourcePath + string("/Shadow.vert");
+	vertexShaderSource = loadShaderFromFile(shaderPath);
+	shaderPath = resourcePath + string("/Shadow.frag");
+	fragmentShaderSource = loadShaderFromFile(shaderPath);
+	
+	m_shadowMapProgram = BuildProgram(vertexShaderSource.c_str(), fragmentShaderSource.c_str());
 	
     glUseProgram(m_simpleProgram);
     
@@ -370,46 +329,4 @@ void RenderingEngine2::OnFingerMove(vec2 previous, vec2 location)
     m_rotationAngle = std::acos(direction.y) * 180.0f / 3.14159f;
     if (direction.x > 0)
         m_rotationAngle = -m_rotationAngle;
-}
-
-GLuint RenderingEngine2::BuildShader(const char* source, GLenum shaderType) const
-{
-    GLuint shaderHandle = glCreateShader(shaderType);
-    glShaderSource(shaderHandle, 1, &source, 0);
-    glCompileShader(shaderHandle);
-    
-    GLint compileSuccess;
-    glGetShaderiv(shaderHandle, GL_COMPILE_STATUS, &compileSuccess);
-    
-    if (compileSuccess == GL_FALSE) {
-        GLchar messages[256];
-        glGetShaderInfoLog(shaderHandle, sizeof(messages), 0, &messages[0]);
-        std::cout << messages;
-        exit(1);
-    }
-    
-    return shaderHandle;
-}
-
-GLuint RenderingEngine2::BuildProgram(const char* vertexShaderSource,
-                                      const char* fragmentShaderSource) const
-{
-    GLuint vertexShader = BuildShader(vertexShaderSource, GL_VERTEX_SHADER);
-    GLuint fragmentShader = BuildShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
-    
-    GLuint programHandle = glCreateProgram();
-    glAttachShader(programHandle, vertexShader);
-    glAttachShader(programHandle, fragmentShader);
-    glLinkProgram(programHandle);
-    
-    GLint linkSuccess;
-    glGetProgramiv(programHandle, GL_LINK_STATUS, &linkSuccess);
-    if (linkSuccess == GL_FALSE) {
-        GLchar messages[256];
-        glGetProgramInfoLog(programHandle, sizeof(messages), 0, &messages[0]);
-        std::cout << messages;
-        exit(1);
-    }
-    
-    return programHandle;
 }

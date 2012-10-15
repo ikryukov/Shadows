@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		72441B881624A46500EEF11B /* Shadow.vert in Sources */ = {isa = PBXBuildFile; fileRef = 72441B871624A46500EEF11B /* Shadow.vert */; };
-		72441B8E1624BBA400EEF11B /* Simple.frag in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B676161CD655007DD665 /* Simple.frag */; };
-		72441B8F1624BBA400EEF11B /* Simple.vert in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B677161CD655007DD665 /* Simple.vert */; };
-		72441B901624BBA400EEF11B /* Quad.vert in Resources */ = {isa = PBXBuildFile; fileRef = 72C7A5F1162356AE0005CE3B /* Quad.vert */; };
-		72441B911624BBA400EEF11B /* Quad.frag in Resources */ = {isa = PBXBuildFile; fileRef = 72C7A5F4162357A40005CE3B /* Quad.frag */; };
-		72441B921624BBA400EEF11B /* Shadow.vert in Resources */ = {isa = PBXBuildFile; fileRef = 72441B871624A46500EEF11B /* Shadow.vert */; };
-		72441B951624BCA900EEF11B /* Shadow.frag in Resources */ = {isa = PBXBuildFile; fileRef = 72441B891624B1E900EEF11B /* Shadow.frag */; };
-		72441B971624BDD600EEF11B /* File in Resources */ = {isa = PBXBuildFile; fileRef = 72441B961624BDD600EEF11B /* File */; };
 		72441B991624C5E000EEF11B /* plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = 72441B981624C5DF00EEF11B /* plane.obj */; };
+		72441BAE162C86FD00EEF11B /* Simple.vert in Sources */ = {isa = PBXBuildFile; fileRef = 72441BAD162C86FD00EEF11B /* Simple.vert */; };
+		72441BB0162C876700EEF11B /* Simple.frag in Sources */ = {isa = PBXBuildFile; fileRef = 72441BAF162C876700EEF11B /* Simple.frag */; };
+		72441BB2162C88CB00EEF11B /* Quad.vert in Sources */ = {isa = PBXBuildFile; fileRef = 72441BB1162C88CB00EEF11B /* Quad.vert */; };
+		72441BB4162C88E300EEF11B /* Quad.frag in Sources */ = {isa = PBXBuildFile; fileRef = 72441BB3162C88E200EEF11B /* Quad.frag */; };
+		72441BB6162C891500EEF11B /* Shadow.frag in Sources */ = {isa = PBXBuildFile; fileRef = 72441BB5162C891500EEF11B /* Shadow.frag */; };
+		72441BB7162C8B9B00EEF11B /* Shadow.vert in Resources */ = {isa = PBXBuildFile; fileRef = 72441B961624BDD600EEF11B /* Shadow.vert */; };
+		72441BB8162C8B9B00EEF11B /* Simple.vert in Resources */ = {isa = PBXBuildFile; fileRef = 72441BAD162C86FD00EEF11B /* Simple.vert */; };
+		72441BB9162C8B9B00EEF11B /* Simple.frag in Resources */ = {isa = PBXBuildFile; fileRef = 72441BAF162C876700EEF11B /* Simple.frag */; };
+		72441BBA162C8B9B00EEF11B /* Quad.vert in Resources */ = {isa = PBXBuildFile; fileRef = 72441BB1162C88CB00EEF11B /* Quad.vert */; };
+		72441BBB162C8B9B00EEF11B /* Quad.frag in Resources */ = {isa = PBXBuildFile; fileRef = 72441BB3162C88E200EEF11B /* Quad.frag */; };
+		72441BBC162C8B9B00EEF11B /* Shadow.frag in Resources */ = {isa = PBXBuildFile; fileRef = 72441BB5162C891500EEF11B /* Shadow.frag */; };
 		72B5B64B161CD5C7007DD665 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B64A161CD5C7007DD665 /* UIKit.framework */; };
 		72B5B64D161CD5C7007DD665 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B64C161CD5C7007DD665 /* Foundation.framework */; };
 		72B5B64F161CD5C7007DD665 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B64E161CD5C7007DD665 /* CoreGraphics.framework */; };
@@ -25,10 +28,6 @@
 		72B5B65F161CD5C8007DD665 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B65E161CD5C8007DD665 /* Default@2x.png */; };
 		72B5B661161CD5C8007DD665 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B660161CD5C8007DD665 /* Default-568h@2x.png */; };
 		72B5B67D161CD655007DD665 /* cornell_box.obj in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B672161CD655007DD665 /* cornell_box.obj */; };
-		72B5B67E161CD655007DD665 /* Shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 72B5B674161CD655007DD665 /* Shader.fsh */; };
-		72B5B67F161CD655007DD665 /* Shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 72B5B675161CD655007DD665 /* Shader.vsh */; };
-		72B5B680161CD655007DD665 /* Simple.frag in Sources */ = {isa = PBXBuildFile; fileRef = 72B5B676161CD655007DD665 /* Simple.frag */; };
-		72B5B681161CD655007DD665 /* Simple.vert in Sources */ = {isa = PBXBuildFile; fileRef = 72B5B677161CD655007DD665 /* Simple.vert */; };
 		72B5B68D161CDB32007DD665 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 72B5B68A161CDB32007DD665 /* AppDelegate.mm */; };
 		72B5B68E161CDB32007DD665 /* GLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 72B5B68B161CDB32007DD665 /* GLView.mm */; };
 		72B5B698161CDC05007DD665 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B5B697161CDC05007DD665 /* OpenGLES.framework */; };
@@ -36,15 +35,18 @@
 		72B5B6A7161CDD79007DD665 /* RenderingEngine2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72B5B69F161CDD79007DD665 /* RenderingEngine2.cpp */; };
 		72B5B6A8161CDD79007DD665 /* ObjLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72B5B6A1161CDD79007DD665 /* ObjLoader.cpp */; };
 		72B5B6B7161E078E007DD665 /* quad.obj in Resources */ = {isa = PBXBuildFile; fileRef = 72B5B6B6161E078E007DD665 /* quad.obj */; };
-		72C7A5F2162356AE0005CE3B /* Quad.vert in Sources */ = {isa = PBXBuildFile; fileRef = 72C7A5F1162356AE0005CE3B /* Quad.vert */; };
-		72C7A5F5162357A40005CE3B /* Quad.frag in Sources */ = {isa = PBXBuildFile; fileRef = 72C7A5F4162357A40005CE3B /* Quad.frag */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		72441B871624A46500EEF11B /* Shadow.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shadow.vert; sourceTree = "<group>"; };
-		72441B891624B1E900EEF11B /* Shadow.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Shadow.frag; sourceTree = "<group>"; };
-		72441B961624BDD600EEF11B /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = File; sourceTree = "<group>"; };
+		72441B961624BDD600EEF11B /* Shadow.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shadow.vert; sourceTree = "<group>"; };
 		72441B981624C5DF00EEF11B /* plane.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plane.obj; sourceTree = "<group>"; };
+		72441BAA162C828700EEF11B /* MathUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathUtils.h; sourceTree = "<group>"; };
+		72441BAC162C839300EEF11B /* ShaderUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderUtils.h; sourceTree = "<group>"; };
+		72441BAD162C86FD00EEF11B /* Simple.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Simple.vert; sourceTree = "<group>"; };
+		72441BAF162C876700EEF11B /* Simple.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Simple.frag; sourceTree = "<group>"; };
+		72441BB1162C88CB00EEF11B /* Quad.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Quad.vert; sourceTree = "<group>"; };
+		72441BB3162C88E200EEF11B /* Quad.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Quad.frag; sourceTree = "<group>"; };
+		72441BB5162C891500EEF11B /* Shadow.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shadow.frag; sourceTree = "<group>"; };
 		72B5B646161CD5C7007DD665 /* Shadows.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shadows.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72B5B64A161CD5C7007DD665 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		72B5B64C161CD5C7007DD665 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -57,10 +59,6 @@
 		72B5B65E161CD5C8007DD665 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		72B5B660161CD5C8007DD665 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		72B5B672161CD655007DD665 /* cornell_box.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cornell_box.obj; sourceTree = "<group>"; };
-		72B5B674161CD655007DD665 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
-		72B5B675161CD655007DD665 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
-		72B5B676161CD655007DD665 /* Simple.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Simple.frag; sourceTree = "<group>"; };
-		72B5B677161CD655007DD665 /* Simple.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Simple.vert; sourceTree = "<group>"; };
 		72B5B689161CDB31007DD665 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		72B5B68A161CDB32007DD665 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		72B5B68B161CDB32007DD665 /* GLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLView.mm; sourceTree = "<group>"; };
@@ -75,8 +73,6 @@
 		72B5B6A5161CDD79007DD665 /* Quaternion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Quaternion.hpp; sourceTree = SOURCE_ROOT; };
 		72B5B6A6161CDD79007DD665 /* Vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector.hpp; sourceTree = SOURCE_ROOT; };
 		72B5B6B6161E078E007DD665 /* quad.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quad.obj; sourceTree = "<group>"; };
-		72C7A5F1162356AE0005CE3B /* Quad.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Quad.vert; sourceTree = "<group>"; };
-		72C7A5F4162357A40005CE3B /* Quad.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Quad.frag; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,10 +136,16 @@
 				72B5B68B161CDB32007DD665 /* GLView.mm */,
 				72B5B68C161CDB32007DD665 /* GLView.h */,
 				72B5B672161CD655007DD665 /* cornell_box.obj */,
-				72B5B673161CD655007DD665 /* Shaders */,
 				72B5B651161CD5C8007DD665 /* Supporting Files */,
-				72441B961624BDD600EEF11B /* File */,
 				72441B981624C5DF00EEF11B /* plane.obj */,
+				72441BAA162C828700EEF11B /* MathUtils.h */,
+				72441BAC162C839300EEF11B /* ShaderUtils.h */,
+				72441BAD162C86FD00EEF11B /* Simple.vert */,
+				72441BAF162C876700EEF11B /* Simple.frag */,
+				72441BB1162C88CB00EEF11B /* Quad.vert */,
+				72441BB3162C88E200EEF11B /* Quad.frag */,
+				72441B961624BDD600EEF11B /* Shadow.vert */,
+				72441BB5162C891500EEF11B /* Shadow.frag */,
 			);
 			path = Shadows;
 			sourceTree = "<group>";
@@ -160,21 +162,6 @@
 				72B5B660161CD5C8007DD665 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		72B5B673161CD655007DD665 /* Shaders */ = {
-			isa = PBXGroup;
-			children = (
-				72441B891624B1E900EEF11B /* Shadow.frag */,
-				72B5B674161CD655007DD665 /* Shader.fsh */,
-				72B5B675161CD655007DD665 /* Shader.vsh */,
-				72B5B676161CD655007DD665 /* Simple.frag */,
-				72B5B677161CD655007DD665 /* Simple.vert */,
-				72C7A5F1162356AE0005CE3B /* Quad.vert */,
-				72C7A5F4162357A40005CE3B /* Quad.frag */,
-				72441B871624A46500EEF11B /* Shadow.vert */,
-			);
-			path = Shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,19 +215,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72441B951624BCA900EEF11B /* Shadow.frag in Resources */,
-				72441B8E1624BBA400EEF11B /* Simple.frag in Resources */,
-				72441B8F1624BBA400EEF11B /* Simple.vert in Resources */,
-				72441B901624BBA400EEF11B /* Quad.vert in Resources */,
-				72441B911624BBA400EEF11B /* Quad.frag in Resources */,
-				72441B921624BBA400EEF11B /* Shadow.vert in Resources */,
+				72441BB7162C8B9B00EEF11B /* Shadow.vert in Resources */,
+				72441BB8162C8B9B00EEF11B /* Simple.vert in Resources */,
+				72441BB9162C8B9B00EEF11B /* Simple.frag in Resources */,
+				72441BBA162C8B9B00EEF11B /* Quad.vert in Resources */,
+				72441BBB162C8B9B00EEF11B /* Quad.frag in Resources */,
+				72441BBC162C8B9B00EEF11B /* Shadow.frag in Resources */,
 				72B5B655161CD5C8007DD665 /* InfoPlist.strings in Resources */,
 				72B5B65D161CD5C8007DD665 /* Default.png in Resources */,
 				72B5B65F161CD5C8007DD665 /* Default@2x.png in Resources */,
 				72B5B661161CD5C8007DD665 /* Default-568h@2x.png in Resources */,
 				72B5B67D161CD655007DD665 /* cornell_box.obj in Resources */,
 				72B5B6B7161E078E007DD665 /* quad.obj in Resources */,
-				72441B971624BDD600EEF11B /* File in Resources */,
 				72441B991624C5E000EEF11B /* plane.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,17 +239,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				72B5B657161CD5C8007DD665 /* main.mm in Sources */,
-				72B5B67E161CD655007DD665 /* Shader.fsh in Sources */,
-				72B5B67F161CD655007DD665 /* Shader.vsh in Sources */,
-				72B5B680161CD655007DD665 /* Simple.frag in Sources */,
-				72B5B681161CD655007DD665 /* Simple.vert in Sources */,
 				72B5B68D161CDB32007DD665 /* AppDelegate.mm in Sources */,
 				72B5B68E161CDB32007DD665 /* GLView.mm in Sources */,
 				72B5B6A7161CDD79007DD665 /* RenderingEngine2.cpp in Sources */,
 				72B5B6A8161CDD79007DD665 /* ObjLoader.cpp in Sources */,
-				72C7A5F2162356AE0005CE3B /* Quad.vert in Sources */,
-				72C7A5F5162357A40005CE3B /* Quad.frag in Sources */,
-				72441B881624A46500EEF11B /* Shadow.vert in Sources */,
+				72441BAE162C86FD00EEF11B /* Simple.vert in Sources */,
+				72441BB0162C876700EEF11B /* Simple.frag in Sources */,
+				72441BB2162C88CB00EEF11B /* Quad.vert in Sources */,
+				72441BB4162C88E300EEF11B /* Quad.frag in Sources */,
+				72441BB6162C891500EEF11B /* Shadow.frag in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,10 +317,12 @@
 		72B5B665161CD5C8007DD665 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ilya Kryukov (48SFQ23Y2W)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shadows/Shadows-Prefix.pch";
 				INFOPLIST_FILE = "Shadows/Shadows-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0FC0C561-2917-47A2-B7C7-F3098381A733";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -344,10 +330,12 @@
 		72B5B666161CD5C8007DD665 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ilya Kryukov (48SFQ23Y2W)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shadows/Shadows-Prefix.pch";
 				INFOPLIST_FILE = "Shadows/Shadows-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0FC0C561-2917-47A2-B7C7-F3098381A733";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

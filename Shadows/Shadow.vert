@@ -1,20 +1,22 @@
-#	extension GL_EXT_shadow_samplers : require
-uniform sampler2DShadow shadowMapTex;
+attribute vec3 Position;
+attribute vec3 Normal;
+attribute vec4 SourceColor;
+attribute vec2 TexCoord;
 
-varying highp vec4 fColor;
-varying highp vec3 fNormal;
-varying highp vec2 fTexCoord;
-varying highp vec4 fShadowMapCoord;
-												
-highp vec3 Light = vec3(0.0, 4.0, 7.0);
-highp vec4 Color = vec4(0.2, 0.4, 0.5, 1.0);
+varying vec4 fColor;
+varying vec3 fNormal;
+varying vec2 fTexCoord;
+varying vec4 fShadowMapCoord;
 
+uniform mat4 Projection;
+uniform mat4 Modelview;
+uniform mat4 lightMatrix;
 
 void main(void)
 {
-	Light = normalize(Light);
-	lowp float visibility = shadow2DProjEXT(shadowMapTex, fShadowMapCoord) * 0.6 + 0.4;
-	gl_FragColor = fColor * max(0.0, dot(fNormal, Light)) * visibility;
-	//gl_FragColor = Color * visibility;
+	fColor = SourceColor;
+	gl_Position = Projection * Modelview * vec4(Position, 1);
+	fShadowMapCoord = lightMatrix * vec4(Position, 1.0);
+	fNormal = normalize(Normal);
+	fTexCoord = TexCoord;
 }
-	
