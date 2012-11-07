@@ -167,11 +167,12 @@ void RenderingEngine2::Initialize(int width, int height)
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 	
+	
 	screen.x = width;
 	screen.y = height;
 	
-	shadowmapSize.x = 2048;
-	shadowmapSize.y = 2048;
+	shadowmapSize.x = 1024;
+	shadowmapSize.y = 1024;
 
 	string shaderPath = resourcePath + string("/Simple.vert");
 	string vertexShaderSource = loadShaderFromFile(shaderPath);
@@ -253,11 +254,11 @@ void RenderingEngine2::shadowPass()
 	
 	lightProjectionMatrix = VerticalFieldOfView(90.0, (shadowmapSize.x + 0.0) / shadowmapSize.y, 0.1, 1000.0);
 	lightModelviewMatrix = LookAt(vec3(0,4,7), vec3(0.0, 0.0, 0.0), vec3(0, 4, -7));
-	
+	glCullFace(GL_FRONT);
 	glUseProgram(m_simpleProgram);
 	glUniformMatrix4fv(uniformProjectionMain, 1, 0, lightProjectionMatrix.Pointer());
     glUniformMatrix4fv(uniformModelviewMain, 1, 0, lightModelviewMatrix.Pointer());
-	glViewport(0, 0, shadowmapSize.x, shadowmapSize.y);
+	glViewport(0, 0, shadowmapSize.x - 2, shadowmapSize.y - 2);
 	
 	GLsizei stride = sizeof(Vertex);
 	
@@ -276,6 +277,7 @@ void RenderingEngine2::shadowPass()
 		glDisableVertexAttribArray(attribPositionMain);
 	}
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glCullFace(GL_BACK);
 }
 
 void RenderingEngine2::mainPass()
