@@ -31,5 +31,5 @@ void main(void)
 	lowp float visibility = sum * (1.0 / 16.0);
 	*/
 
-	gl_FragColor = fColor * max(0.0, dot(fNormal, Light) * 0.5 + 0.5) * visibility;
+	gl_FragColor = fColor * max(0.0, dot(fNormal, Light)) * visibility;
 }
